@@ -1,0 +1,93 @@
+Axiscore is built around a hybrid object-based audio pipeline combined with a unique compression system called SVBC (Synthetic Vector‑Based Compression). This document explains how the system actually works internally.
+
+----------------------------------------------------
+1. Object-Based Audio Core
+----------------------------------------------------
+Axiscore does not store channels. It stores OBJECTS (even static channels are still technically objects).
+
+Each object contains:
+- XYZ position
+- normalization (so it is the same volume as it moves, this is not a compressor)
+- Attenuation (size/falloff)
+- Gain
+
+
+This allows Axiscore to reconstruct the sound field rather than store fixed channels dynamically.
+
+----------------------------------------------------
+2. Axiscore 1 (Uncompressed Mode)
+----------------------------------------------------
+Axiscore 1 transmits:
+- Raw PCM audio for each object
+- Object metadata
+- Sync word
+
+There is no transform, no MDCT, no FFT, no psychoacoustic model.  
+This mode is designed for:
+- Zero-latency rendering
+- Real-time systems
+- Games and live audio
+
+----------------------------------------------------
+3. Axiscore 2 (Compressed Mode)
+----------------------------------------------------
+Axiscore 2 takes the Axiscore 1 bitstream and compresses it by:
+- lowering object parameter refresh rate to 120HZ instead of 4800HZ
+- Compressing audio
+- lossless compression to make it one stream
+
+Axiscore 2 does NOT compress the audio itself — it compresses the *structure* of the object stream.
+
+The audio compression is handled by SVBC.
+
+----------------------------------------------------
+4. SVBC — Synthetic Vector‑Based Compression
+----------------------------------------------------
+SVBC is the dedicated audio compression engine for Axiscore.
+
+It works by:
+1. Detecting repeating waveform cycles
+2. Modeling them as geometric vectors
+3. Storing the shape instead of the samples
+4. Reconstructing the waveform using synthetic vector curves
+
+SVBC does NOT use:
+- MDCT
+- FFT
+- LPC
+- Neural nets
+- Psychoacoustics
+
+Instead, it uses:
+- Vector curve fitting
+- Cycle detection
+- Geometric reconstruction
+- Shape-based prediction
+
+This allows:
+- Extremely high compression ratios
+- Bit-perfect reconstruction of simple waves
+- Near-perfect reconstruction of complex waves
+- Very fast decoding
+
+----------------------------------------------------
+5. Axiscore 3 (Wave Field Synthesis Renderer)
+----------------------------------------------------
+Axiscore 3 is the future renderer that will support:
+- Wave Field Synthesis (WFS)
+- Physical wavefront reconstruction
+- Large speaker arrays
+- Holographic audio fields
+
+Axiscore 3 takes the object data and synthesizes actual wavefronts instead of panning objects.
+
+----------------------------------------------------
+6. Summary
+----------------------------------------------------
+Axiscore works by combining:
+- Object-based audio
+- Structural compression (Axiscore 2)
+- Waveform modeling (SVBC)
+- Future wavefront synthesis (Axiscore 3)
+
+This creates a flexible, modern spatial audio system that does not rely on traditional transform codecs.
