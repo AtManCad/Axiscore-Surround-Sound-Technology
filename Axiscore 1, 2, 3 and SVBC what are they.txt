@@ -1,0 +1,75 @@
+Axiscore is not a single codec — it is an entire audio ecosystem made of four major components. Each one serves a different purpose in the pipeline.
+
+-----------------------------------------
+Axiscore 1 — The Uncompressed Core
+-----------------------------------------
+Axiscore 1 is the raw, uncompressed format.
+It includes:
+- Object metadata
+- XYZ coordinates
+- Velocity and motion data
+- Timing information
+- Channel/object hybrid support
+
+Use cases:
+- Real‑time rendering
+- Games
+- Live audio
+- Low‑latency systems
+
+-----------------------------------------
+Axiscore 2 — The Compressed Bitstream
+-----------------------------------------
+Axiscore 2 takes Axiscore 1 and compresses it.
+It keeps:
+- All object metadata
+- All spatial information
+- All timing accuracy
+
+But reduces:
+- Bitrate
+- Storage size
+- Bandwidth requirements
+
+Use cases:
+- Streaming
+- Distribution
+- Media playback
+
+-----------------------------------------
+Axiscore SVBC — The Audio Compression Layer
+-----------------------------------------
+SVBC stands for Synthetic Vector‑Based Compression.
+It is the dedicated audio compression engine for Axiscore.
+
+It uses:
+- Vector‑based waveform modeling
+- Cycle detection
+- Geometric compression
+- Spectral prediction
+
+SVBC is designed for:
+- High compression ratios
+- Low artifacts
+- Fast decoding
+
+-----------------------------------------
+Axiscore 3 — Wave Field Synthesis Renderer
+-----------------------------------------
+Axiscore 3 is the future renderer that will support:
+- Wave Field Synthesis (WFS)
+- Large speaker arrays
+- Physical wavefront reconstruction
+- True holographic audio fields
+
+This is the long‑term evolution of Axiscore beyond object‑based audio.
+
+-----------------------------------------
+Summary
+-----------------------------------------
+Axiscore 1 → Uncompressed object‑based format  
+Axiscore 2 → Compressed version of Axiscore 1  
+Axiscore SVBC → Audio compression engine  
+Axiscore 3 → Future WFS renderer  
+
+Together, these form the Axiscore Family — a modern, open, GPL‑licensed spatial audio standard.
